@@ -48,7 +48,7 @@ export const ContactView: React.FC = () => {
   const preferredStyleObj = DESIGN_STYLES.find((st) => st.id === selectedStyle);
   const preferredStyleName = preferredStyleObj ? preferredStyleObj.name : selectedStyle;
 
-  const emailBodyText = `Hei Axel og Maren,
+  const emailBodyText = `Hei Axel,
 
 Her er en ny henvendelse fra kontaktskjemaet på widevig.no:
 
@@ -64,7 +64,7 @@ ${message || "Ingen skriftlig melding oppgitt."}
 -------------------------------------------
 Sendt fra kontaktskjemaet på Widevig Digital`;
 
-  const mailtoUrl = `mailto:axel@widevig.no?cc=maren@widevig.no&subject=${encodeURIComponent(
+  const mailtoUrl = `mailto:axel@widevig.no?subject=${encodeURIComponent(
     `Henvendelse Widevig Digital: ${company || name || "Ny kontakt"}`
   )}&body=${encodeURIComponent(emailBodyText)}`;
 
@@ -168,17 +168,14 @@ Sendt fra kontaktskjemaet på Widevig Digital`;
                   Forespørsel Klargjort!
                 </h3>
                 <p className={`text-xs ${activeStyle.textSecondary} mt-1 max-w-md mx-auto`}>
-                  Takk, <strong>{name || "bruker"}</strong>! For at henvendelsen for <strong>{company || "din bedrift"}</strong> skal nå Axel og Maren umiddelbart, <strong>velg én av de to metodene under</strong> for å fullføre sendingen:
+                  Takk, <strong>{name || "bruker"}</strong>! For at henvendelsen for <strong>{company || "din bedrift"}</strong> skal nå Axel umiddelbart, <strong>velg én av de to metodene under</strong> for å fullføre sendingen:
                 </p>
               </div>
 
-              {/* Recipient info badges */}
-              <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-mono">
+              {/* Recipient info badge */}
+              <div className="flex items-center justify-center gap-2 text-xs font-mono">
                 <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/30 rounded-lg text-indigo-700 dark:text-indigo-300 font-bold">
                   Mottaker: axel@widevig.no
-                </span>
-                <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/30 rounded-lg text-indigo-700 dark:text-indigo-300 font-bold">
-                  Kopi: maren@widevig.no
                 </span>
               </div>
 
@@ -238,7 +235,7 @@ Sendt fra kontaktskjemaet på Widevig Digital`;
                     Dersom e-postprogrammet ditt ikke åpnet seg automatisk, betyr det at enheten din mangler en registrert e-postklient. <strong>E-posten er da IKKE sendt.</strong>
                   </p>
                   <p className="leading-relaxed font-semibold text-[11px]">
-                    Vennligst trykk på <strong>"Kopier E-posttekst" (Metode 2)</strong> i stedet, og lim den inn manuelt i din valgte e-posttjeneste (f.eks. Gmail, Outlook m.m.) adressert til <strong>axel@widevig.no</strong> og <strong>maren@widevig.no</strong>.
+                    Vennligst trykk på <strong>"Kopier E-posttekst" (Metode 2)</strong> i stedet, og lim den inn manuelt i din valgte e-posttjeneste (f.eks. Gmail, Outlook m.m.) adressert til <strong>axel@widevig.no</strong>.
                   </p>
                   <div className="pt-1">
                     <button
@@ -417,7 +414,6 @@ Sendt fra kontaktskjemaet på Widevig Digital`;
                 <Mail className="w-4 h-4 text-indigo-500 shrink-0" />
                 <div className="flex flex-col">
                   <a href="mailto:axel@widevig.no" className="hover:underline text-indigo-600 dark:text-indigo-400 font-medium">axel@widevig.no</a>
-                  <a href="mailto:maren@widevig.no" className="hover:underline text-indigo-600 dark:text-indigo-400 font-medium">maren@widevig.no</a>
                 </div>
               </div>
               <div className="flex items-center gap-3">

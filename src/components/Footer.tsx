@@ -69,7 +69,7 @@ export const Footer: React.FC = () => {
             </h4>
             <div className={`text-xs ${activeStyle.textSecondary} space-y-2 leading-relaxed`}>
               <p>🌐 100% Digitalt • Hele Norge</p>
-              <p>📧 <a href="mailto:axel@widevig.no" className="hover:underline">axel@widevig.no</a> / <a href="mailto:maren@widevig.no" className="hover:underline">maren@widevig.no</a></p>
+              <p>📧 <a href="mailto:axel@widevig.no" className="hover:underline">axel@widevig.no</a></p>
               <p className="pt-2 font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 Åpen for nye oppdrag Q3/Q4
@@ -90,7 +90,7 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-3">
             <Award className="w-5 h-5 text-amber-500 shrink-0" />
             <span className={`text-xs ${activeStyle.textSecondary}`}>
-              Prisvinnende skandinavisk UX og IKT-arkitektur
+              Brukervennlig skandinavisk UX og moderne IKT-arkitektur
             </span>
           </div>
           <div className="flex items-center gap-3">

@@ -38,7 +38,7 @@ export const QuoteModal: React.FC = () => {
   const preferredStyleObj = DESIGN_STYLES.find((st) => st.id === preferredStyle);
   const preferredStyleName = preferredStyleObj ? preferredStyleObj.name : preferredStyle;
 
-  const emailBodyText = `Hei Axel og Maren,
+  const emailBodyText = `Hei Axel,
 
 Her er en ny tilbudsforespørsel fra Widevig Digital sine nettsider:
 
@@ -56,7 +56,7 @@ ${description || "Ingen merknader skrevet."}
 -------------------------------------------
 Sendt fra tilbudsskjemaet på widevig.no`;
 
-  const mailtoUrl = `mailto:axel@widevig.no?cc=maren@widevig.no&subject=${encodeURIComponent(
+  const mailtoUrl = `mailto:axel@widevig.no?subject=${encodeURIComponent(
     `Tilbudsforespørsel Widevig Digital: ${companyName || contactName || "Ny kunde"}`
   )}&body=${encodeURIComponent(emailBodyText)}`;
 
@@ -134,17 +134,14 @@ Sendt fra tilbudsskjemaet på widevig.no`;
                 Forespørsel Klargjort!
               </h3>
               <p className={`text-xs ${activeStyle.textSecondary} mt-1 max-w-md mx-auto`}>
-                Takk, <strong>{contactName || "bruker"}</strong>! For at henvendelsen for <strong>{companyName || "din bedrift"}</strong> skal nå Axel og Maren umiddelbart, <strong>velg én av de to metodene under</strong> for å fullføre sendingen:
+                Takk, <strong>{contactName || "bruker"}</strong>! For at henvendelsen for <strong>{companyName || "din bedrift"}</strong> skal nå Axel umiddelbart, <strong>velg én av de to metodene under</strong> for å fullføre sendingen:
               </p>
             </div>
 
-            {/* Recipient info badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-mono">
+            {/* Recipient info badge */}
+            <div className="flex items-center justify-center gap-2 text-xs font-mono">
               <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/30 rounded-lg text-indigo-700 dark:text-indigo-300 font-bold">
                 Mottaker: axel@widevig.no
-              </span>
-              <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/30 rounded-lg text-indigo-700 dark:text-indigo-300 font-bold">
-                Kopi: maren@widevig.no
               </span>
             </div>
 
@@ -204,7 +201,7 @@ Sendt fra tilbudsskjemaet på widevig.no`;
                   Dersom e-postprogrammet ditt ikke åpnet seg automatisk, betyr det at enheten din mangler en registrert e-postklient. <strong>E-posten er da IKKE sendt.</strong>
                 </p>
                 <p className="leading-relaxed font-semibold text-[11px]">
-                  Vennligst trykk på <strong>"Kopier E-posttekst" (Metode 2)</strong> i stedet, og lim den inn manuelt i din valgte e-posttjeneste (f.eks. Gmail, Outlook m.m.) adressert til <strong>axel@widevig.no</strong> og <strong>maren@widevig.no</strong>.
+                  Vennligst trykk på <strong>"Kopier E-posttekst" (Metode 2)</strong> i stedet, og lim den inn manuelt i din valgte e-posttjeneste (f.eks. Gmail, Outlook m.m.) adressert til <strong>axel@widevig.no</strong>.
                 </p>
                 <div className="pt-1">
                   <button
@@ -254,7 +251,7 @@ Sendt fra tilbudsskjemaet på widevig.no`;
                 Få et Uforpliktende Tilbud
               </h3>
               <p className={`text-xs ${activeStyle.textSecondary}`}>
-                Mottat skreddersydd pristilbud fra <strong>Widevig Digital (Widevig AS)</strong> innen 24 timer. Forespørselen sendes direkte til <strong className="text-indigo-600 dark:text-indigo-400">axel@widevig.no</strong> og <strong className="text-indigo-600 dark:text-indigo-400">maren@widevig.no</strong>.
+                Mottat skreddersydd pristilbud fra <strong>Widevig Digital (Widevig AS)</strong> innen 24 timer. Forespørselen sendes direkte til <strong className="text-indigo-600 dark:text-indigo-400">axel@widevig.no</strong>.
               </p>
             </div>
 

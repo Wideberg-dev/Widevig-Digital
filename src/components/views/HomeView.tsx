@@ -56,16 +56,16 @@ export const HomeView: React.FC = () => {
             <button
               id="hero-about-btn"
               onClick={() => setCurrentSubPage("about")}
-              className={`px-6 py-4 text-sm font-semibold ${activeStyle.buttonRadius} border ${activeStyle.surfaceBorder} ${activeStyle.textPrimary} flex items-center gap-2 hover:bg-black/5 dark:hover:bg-white/5 transition-colors`}
+              className={`px-8 py-4 text-sm font-bold ${activeStyle.buttonRadius} ${activeStyle.accentBg} flex items-center gap-2 shadow-lg transition-transform hover:scale-105 active:scale-95`}
             >
-              <Users className="w-4 h-4 text-indigo-500" />
+              <Users className="w-4 h-4" />
               <span>Om Oss & Team</span>
             </button>
 
             <button
               id="hero-showcase-btn"
               onClick={() => setCurrentSubPage("design-showcase")}
-              className={`px-6 py-4 text-sm font-semibold ${activeStyle.buttonRadius} bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 border border-indigo-500/20 flex items-center gap-2 hover:bg-indigo-500/20 transition-colors`}
+              className={`px-8 py-4 text-sm font-bold ${activeStyle.buttonRadius} ${activeStyle.accentBg} flex items-center gap-2 shadow-lg transition-transform hover:scale-105 active:scale-95`}
             >
               <Palette className="w-4 h-4" />
               <span>Utforsk Design Showcase</span>

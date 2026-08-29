@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="widevig-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#4338ca" flood-opacity="0.35" />
+    </filter>
+  </defs>
+  
+  <!-- Rounded Background Tile -->
+  <rect width="512" height="512" rx="128" fill="url(#widevig-grad)" />
+  
+  <!-- Subtle Inner Border Glow -->
+  <rect x="8" y="8" width="496" height="496" rx="120" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="8" />
+
+  <!-- Modern Sharp Geometric 'W' Mark -->
+  <path d="M72 136h68l60 188 56-188h56l56 188 60-188h68l-88 240h-68l-56-172-56 172h-68L72 136z" fill="#ffffff" filter="url(#shadow)" />
+</svg>

@@ -527,7 +527,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     imageUrl: "/team/maren.jpg",
     specialties: ["Bachelor Telematikk", "Master InfoSec NTNU", "Cyberingeniør", "IT-Sikkerhet", "Økonomi & Admin"],
     linkedin: "https://linkedin.com",
-    email: "maren@widevig.no",
+    email: "axel@widevig.no",
   },
 ];
 

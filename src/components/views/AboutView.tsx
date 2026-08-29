@@ -234,7 +234,7 @@ export const AboutView: React.FC = () => {
           <div className={`text-xs ${activeStyle.textSecondary} space-y-1.5 pt-2 font-mono`}>
             <p className="flex items-center gap-2"><Video className="w-4 h-4 text-indigo-500 shrink-0" /> Teams, Google Meet & Zoom for sømløse møter</p>
             <p className="flex items-center gap-2"><Laptop className="w-4 h-4 text-indigo-500 shrink-0" /> Skytjenester, Figma & GitHub for sanntids samhandling</p>
-            <p className="pt-1">📧 <a href="mailto:axel@widevig.no" className="hover:underline text-indigo-600 dark:text-indigo-400">axel@widevig.no</a> / <a href="mailto:maren@widevig.no" className="hover:underline text-indigo-600 dark:text-indigo-400">maren@widevig.no</a></p>
+            <p className="pt-1">📧 <a href="mailto:axel@widevig.no" className="hover:underline text-indigo-600 dark:text-indigo-400">axel@widevig.no</a></p>
           </div>
 
           <button
