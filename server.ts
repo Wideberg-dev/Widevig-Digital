@@ -7,7 +7,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+// Hosting platforms (Cloud Run, Render, Railway …) provide the port through PORT
+const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
 
@@ -80,13 +81,14 @@ app.post("/api/ai-advisor", async (req, res) => {
           designStyleRecommendation: selectedStyleName || "Nordisk Minimalisme",
           keyTechnologies: ["React / TypeScript", "Tailwind CSS", "Gemini AI API", "Cloud Run / Microservices"],
           estimatedTimeline: "8 - 12 uker",
-          estimatedRoi: "+320% økt konvertering og redusert driftskostnad",
+          estimatedRoi: "Avhenger av utgangspunktet. Vi definerer målbare mål sammen i oppstarten.",
         },
       });
     }
 
-    const prompt = `Du er sjefsstrateg og sjefsdesigner hos Widevig Digital, et ledende norsk IKT- og designbyrå.
+    const prompt = `Du er strateg og designer hos Widevig Digital, et lite norsk IKT- og designbyrå.
 Svar på norsk med profesjonell, engasjerende tone.
+Ikke finn opp tall, prosenter, kundereferanser eller resultater som ikke kan dokumenteres.
 
 Gitt følgende bedriftskontekst:
 - Bedriftsnavn: ${companyName || "Anonym Bedrift"}
@@ -101,7 +103,7 @@ Generer en strukturert strategisk anbefaling i JSON-format med følgende nøkler
 - designStyleRecommendation: (Begrunnelse for hvorfor den valgte designstilen eller en foreslått stil passer)
 - keyTechnologies: (Array med 4 anbefalte teknologier)
 - estimatedTimeline: (Estimert gjennomføringstid, f.eks "6 - 10 uker")
-- estimatedRoi: (Forventet avkastning / effekt, f.eks "+250% økt digital konvertering")
+- estimatedRoi: (Forventet effekt beskrevet kvalitativt, uten prosenter eller tall, f.eks "Bedre brukeropplevelse og flere henvendelser via nettsiden")
 
 Returner KUN gyldig JSON.`;
 

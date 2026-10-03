@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { DesignStyle, StyleId, SubPage, Project } from "../types";
-import { DESIGN_STYLES } from "../data/mockData";
+import React, { createContext, useContext, useState, ReactNode } from "react";
+import { DesignStyle, StyleId, SubPage } from "../types";
+import { DESIGN_STYLES, SIGNATURE_STYLE } from "../data/mockData";
 
 interface DesignStyleContextType {
   activeStyle: DesignStyle;
@@ -9,48 +9,42 @@ interface DesignStyleContextType {
   setCurrentSubPage: (page: SubPage) => void;
   quoteModalOpen: boolean;
   setQuoteModalOpen: (open: boolean) => void;
-  activeProjectModal: Project | null;
-  setActiveProjectModal: (project: Project | null) => void;
   allStyles: DesignStyle[];
 }
 
 const DesignStyleContext = createContext<DesignStyleContextType | undefined>(undefined);
 
+const loadShowcaseStyle = (): DesignStyle => {
+  try {
+    const saved = localStorage.getItem("ev_active_style");
+    return DESIGN_STYLES.find((s) => s.id === saved) ?? DESIGN_STYLES[0];
+  } catch {
+    return DESIGN_STYLES[0];
+  }
+};
+
 export const DesignStyleProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [activeStyle, setActiveStyle] = useState<DesignStyle>(DESIGN_STYLES[0]);
+  const [showcaseStyle, setShowcaseStyle] = useState<DesignStyle>(loadShowcaseStyle);
   const [currentSubPage, setCurrentSubPage] = useState<SubPage>("home");
   const [quoteModalOpen, setQuoteModalOpen] = useState<boolean>(false);
-  const [activeProjectModal, setActiveProjectModal] = useState<Project | null>(null);
+
+  // The switchable styles only apply inside the Design Showcase; every other page uses the brand style
+  const activeStyle = currentSubPage === "design-showcase" ? showcaseStyle : SIGNATURE_STYLE;
 
   const setStyleById = (id: StyleId) => {
     const found = DESIGN_STYLES.find((s) => s.id === id);
     if (found) {
-      setActiveStyle(found);
-      localStorage.setItem("ev_active_style", id);
+      setShowcaseStyle(found);
+      try {
+        localStorage.setItem("ev_active_style", id);
+      } catch {
+        // Storage can be unavailable (private mode); the in-memory style still applies
+      }
     }
   };
 
-  useEffect(() => {
-    if (currentSubPage === "design-showcase") {
-      const saved = localStorage.getItem("ev_active_style") as StyleId | null;
-      if (saved) {
-        const found = DESIGN_STYLES.find((s) => s.id === saved);
-        if (found) {
-          setActiveStyle(found);
-        }
-      }
-    } else {
-      setActiveStyle(DESIGN_STYLES[0]);
-    }
-  }, [currentSubPage]);
-
   const handleSetSubPage = (page: SubPage) => {
     setCurrentSubPage(page);
-    if (page !== "design-showcase") {
-      const defaultStyle = DESIGN_STYLES[0]; // Nordisk Minimalisme
-      setActiveStyle(defaultStyle);
-      localStorage.setItem("ev_active_style", defaultStyle.id);
-    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -63,8 +57,6 @@ export const DesignStyleProvider: React.FC<{ children: ReactNode }> = ({ childre
         setCurrentSubPage: handleSetSubPage,
         quoteModalOpen,
         setQuoteModalOpen,
-        activeProjectModal,
-        setActiveProjectModal,
         allStyles: DESIGN_STYLES,
       }}
     >

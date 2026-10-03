@@ -1,120 +1,120 @@
 import React from "react";
+import { motion } from "motion/react";
 import { useDesignStyle } from "../context/DesignStyleContext";
-import { Sparkles, ArrowRight, Shield, Award, HeartHandshake } from "lucide-react";
+import { ArrowUpRight, Shield, Award, HeartHandshake } from "lucide-react";
 import { SubPage } from "../types";
+
+const NAV_LINKS: { id: SubPage; label: string }[] = [
+  { id: "home", label: "Hjem" },
+  { id: "about", label: "Om oss" },
+  { id: "design-showcase", label: "Design Showcase" },
+  { id: "contact", label: "Kontakt" },
+];
 
 export const Footer: React.FC = () => {
   const { activeStyle, setCurrentSubPage } = useDesignStyle();
-
-  const navLinks: { id: SubPage; label: string }[] = [
-    { id: "home", label: "Hovedside" },
-    { id: "about", label: "Om Oss" },
-    { id: "contact", label: "Kontakt" },
-    { id: "design-showcase", label: "Design Showcase" },
-  ];
+  const isSignature = activeStyle.id === "widevig-signature";
 
   return (
-    <footer className={`border-t ${activeStyle.surfaceBorder} ${activeStyle.surfaceClass} transition-colors duration-300 mt-20`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          
-          {/* Brand Col */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className={`w-9 h-9 ${activeStyle.buttonRadius} ${activeStyle.accentBg} flex items-center justify-center font-extrabold text-base shadow-sm`}>
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M2 4h3.5l3.5 11 3.5-11h3l3.5 11 3.5-11H22l-5 16h-3.5L10 9l-3.5 11H3L2 4z" />
-                </svg>
-              </div>
-              <div className="flex items-baseline gap-2">
-                <span className={`text-2xl font-extrabold tracking-tight ${activeStyle.textPrimary}`}>
-                  Widevig
-                </span>
-                <span className="text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
-                  Digital
-                </span>
-              </div>
-            </div>
-            <p className={`text-sm ${activeStyle.textSecondary} max-w-sm leading-relaxed`}>
-              Widevig Digital er et spesiallisert konsulent- og utviklingsmiljø under holdingselskapet <strong>Widevig AS</strong>. Vi leverer IT-strategi, skreddersydd design og moderne digitale løsninger.
+    <footer className={`relative mt-24 overflow-hidden border-t ${activeStyle.surfaceBorder} transition-colors duration-300`}>
+      <div className="mx-auto max-w-7xl px-4 pb-10 pt-20 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12">
+          {/* Brand + CTA */}
+          <div className="space-y-6 lg:col-span-6">
+            <h3 className={`max-w-md font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl ${activeStyle.textPrimary}`}>
+              Har du et prosjekt i tankene?
+            </h3>
+            <a
+              href="mailto:axel@widevig.no"
+              className={`group inline-flex items-center gap-2 font-display text-xl font-semibold ${activeStyle.textPrimary}`}
+            >
+              <span className="relative">
+                axel@widevig.no
+                <span className="absolute -bottom-1 left-0 h-px w-full bg-current opacity-30 transition-opacity duration-500 group-hover:opacity-100" />
+              </span>
+              <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+            </a>
+            <p className={`max-w-sm text-sm leading-relaxed ${activeStyle.textSecondary}`}>
+              Widevig Digital er et digitalt byrå under <strong>Widevig AS</strong>. Vi leverer webdesign,
+              utvikling og IT-rådgivning til bedrifter i hele Norge.
             </p>
           </div>
 
-          {/* Nav Links */}
-          <div className="space-y-3">
-            <h4 className={`text-sm font-bold tracking-wider uppercase ${activeStyle.textPrimary}`}>
-              Hovedmeny
-            </h4>
-            <ul className="space-y-2 text-sm">
-              {navLinks.map((item) => (
+          {/* Nav */}
+          <div className="space-y-4 lg:col-span-3">
+            <h4 className={`text-xs font-semibold uppercase tracking-[0.2em] ${activeStyle.textSecondary}`}>Meny</h4>
+            <ul className="space-y-2.5">
+              {NAV_LINKS.map((item) => (
                 <li key={item.id}>
                   <button
                     id={`footer-link-${item.id}`}
                     onClick={() => setCurrentSubPage(item.id)}
-                    className={`${activeStyle.textSecondary} hover:${activeStyle.textPrimary} transition-colors flex items-center gap-1 group`}
+                    className={`group inline-flex items-center gap-1 text-sm ${activeStyle.textPrimary} opacity-80 transition-opacity hover:opacity-100`}
                   >
-                    <ArrowRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                     <span>{item.label}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
                   </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Office & Contact */}
-          <div className="space-y-3">
-            <h4 className={`text-sm font-bold tracking-wider uppercase ${activeStyle.textPrimary}`}>
-              Digitalt Byrå
-            </h4>
-            <div className={`text-xs ${activeStyle.textSecondary} space-y-2 leading-relaxed`}>
-              <p>🌐 100% Digitalt • Hele Norge</p>
-              <p>📧 <a href="mailto:axel@widevig.no" className="hover:underline">axel@widevig.no</a></p>
-              <p className="pt-2 font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                Åpen for nye oppdrag Q3/Q4
+          {/* Availability */}
+          <div className="space-y-4 lg:col-span-3">
+            <h4 className={`text-xs font-semibold uppercase tracking-[0.2em] ${activeStyle.textSecondary}`}>Status</h4>
+            <div className={`space-y-2.5 text-sm ${activeStyle.textSecondary}`}>
+              <p className="flex items-center gap-2 font-medium text-emerald-600 dark:text-emerald-400">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                Åpen for nye oppdrag
               </p>
+              <p>100 % digitalt · Hele Norge</p>
+              <p>Svar innen 24 timer</p>
             </div>
           </div>
-
         </div>
 
-        {/* Guarantees Badges */}
-        <div className={`mt-12 pt-8 border-t ${activeStyle.surfaceBorder} grid grid-cols-1 md:grid-cols-3 gap-6`}>
-          <div className="flex items-center gap-3">
-            <Shield className="w-5 h-5 text-indigo-500 shrink-0" />
-            <span className={`text-xs ${activeStyle.textSecondary}`}>
-              Garantert 100% WCAG 2.1 Tilgjengelighet og GDPR compliance
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Award className="w-5 h-5 text-amber-500 shrink-0" />
-            <span className={`text-xs ${activeStyle.textSecondary}`}>
-              Brukervennlig skandinavisk UX og moderne IKT-arkitektur
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <HeartHandshake className="w-5 h-5 text-emerald-500 shrink-0" />
-            <span className={`text-xs ${activeStyle.textSecondary}`}>
-              Dedikerte seniorkonsulenter gjennom hele prosjektforløpet
-            </span>
-          </div>
+        {/* Guarantees */}
+        <div className={`mt-16 grid grid-cols-1 gap-6 border-t pt-8 md:grid-cols-3 ${activeStyle.surfaceBorder}`}>
+          {[
+            { icon: Shield, color: "text-violet-500 dark:text-violet-300", text: "Bygget etter WCAG 2.1 AA og GDPR" },
+            { icon: Award, color: "text-amber-500 dark:text-amber-300", text: "Skandinavisk UX og moderne arkitektur" },
+            { icon: HeartHandshake, color: "text-emerald-500 dark:text-emerald-300", text: "Direkte kontakt med de som bygger løsningen" },
+          ].map(({ icon: Icon, color, text }) => (
+            <div key={text} className="flex items-center gap-3">
+              <Icon className={`h-5 w-5 shrink-0 ${color}`} />
+              <span className={`text-xs ${activeStyle.textSecondary}`}>{text}</span>
+            </div>
+          ))}
         </div>
+
+        {/* Giant wordmark */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none mt-16 select-none text-center"
+          aria-hidden
+        >
+          <span
+            className={`block font-display text-[19vw] font-extrabold leading-[0.8] tracking-[-0.06em] lg:text-[15rem] ${
+              isSignature
+                ? "bg-gradient-to-b from-white/20 to-white/0 bg-clip-text text-transparent"
+                : `${activeStyle.textPrimary} opacity-10`
+            }`}
+          >
+            Widevig
+          </span>
+        </motion.div>
 
         {/* Copyright */}
-        <div className={`mt-8 pt-6 border-t ${activeStyle.surfaceBorder} text-center text-xs ${activeStyle.textSecondary} flex flex-col sm:flex-row items-center justify-between gap-4`}>
+        <div className={`mt-6 flex flex-col items-center justify-between gap-4 text-xs sm:flex-row ${activeStyle.textSecondary}`}>
           <p>© {new Date().getFullYear()} Widevig AS. Alle rettigheter reservert.</p>
-          <div className="flex items-center gap-4">
-            <button onClick={() => setCurrentSubPage("design-showcase")} className="hover:underline">
-              Utforsk Design Showcase
-            </button>
-            <span>•</span>
-            <button onClick={() => setCurrentSubPage("contact")} className="hover:underline">
-              Kontakt Oss
-            </button>
-          </div>
+          <p>En del av Widevig AS</p>
         </div>
-
       </div>
     </footer>
   );
