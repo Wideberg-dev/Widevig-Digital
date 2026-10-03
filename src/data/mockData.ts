@@ -1,4 +1,4 @@
-import { DesignStyle, Service, Project, TeamMember } from "../types";
+import { DesignStyle, Service, TeamMember } from "../types";
 
 /** Widevig's own brand style, used on every page outside the Design Showcase */
 export const SIGNATURE_STYLE: DesignStyle = {
@@ -41,7 +41,7 @@ export const DESIGN_STYLES: DesignStyle[] = [
     name: "Nordisk Minimalisme",
     tagline: "Ren, funksjonell og skandinavisk ro",
     description: "Inspirert av nordisk arkitektur: generøs bruk av hvitrom, subtile gråtoner, dyp skifertyper og krystallklar typografisk hierarki.",
-    badgeText: "Populær for bedrifter",
+    badgeText: "Tidløs & Profesjonell",
     themeClass: "style-nordic",
     bgClass: "bg-slate-50 text-slate-900",
     surfaceClass: "bg-white text-slate-900 border border-slate-200 shadow-sm",
@@ -379,7 +379,6 @@ export const SERVICES: Service[] = [
     deliverables: ["Fullstendig koded og lansert nettside / webapp", "Kildekode og strukturert komponentbibliotek", "SEO-optimalisering & driftstilpasning"],
     priceRange: "Fra 4.500 NOK",
     typicalDuration: "2 - 5 uker",
-    relatedCaseStudyId: "fjord-fintech",
   },
   {
     id: "ikt-oppsett-arkitektur",
@@ -397,7 +396,6 @@ export const SERVICES: Service[] = [
     deliverables: ["Systemarkitekturtegninger & teknisk dokumentasjon", "Skreddersydd IKT-veikart og migreringsplan", "Etablert og optimalisert infrastruktur"],
     priceRange: "Fra 6.500 NOK",
     typicalDuration: "3 - 6 uker",
-    relatedCaseStudyId: "fjord-fintech",
   },
   {
     id: "ai-integrasjon",
@@ -415,7 +413,6 @@ export const SERVICES: Service[] = [
     deliverables: ["Funksjonell AI-modul / backend-tjeneste", "Personvern- og sikkerhetsprotokoll for bedriftsdata", "Brukerveiledning og opplæringsworkshop"],
     priceRange: "Fra 5.500 NOK",
     typicalDuration: "2 - 5 uker",
-    relatedCaseStudyId: "health-ai-assistant",
   },
   {
     id: "it-sikkerhet-cyber",
@@ -433,7 +430,6 @@ export const SERVICES: Service[] = [
     deliverables: ["Sikkerhetsrapport & prioritert tiltaksliste", "Etablerte sikkerhetsprotokoller & tilgangsmatrise", "Rådgivningsmøte og risikogjennomgang"],
     priceRange: "Fra 4.000 NOK",
     typicalDuration: "2 - 4 uker",
-    relatedCaseStudyId: "energy-cloud-migration",
   },
   {
     id: "skyteknologi-skymigrering",
@@ -451,7 +447,6 @@ export const SERVICES: Service[] = [
     deliverables: ["Ferdig konfigurert skyinfrastruktur", "Automatisert deploy-pipeline (CI/CD)", "Drifts- og kostnadsdashbord"],
     priceRange: "Fra 5.000 NOK",
     typicalDuration: "2 - 5 uker",
-    relatedCaseStudyId: "energy-cloud-migration",
   },
   {
     id: "digital-ledelse-prosjekt-økonomi",
@@ -469,81 +464,6 @@ export const SERVICES: Service[] = [
     deliverables: ["Gjennomarbeidet prosjektplan og fremdriftsmål", "Budsjett- og kostnadsanalyse", "Løpende prosjektledelse & statusrapportering"],
     priceRange: "Fra 3.500 NOK",
     typicalDuration: "Fleksibelt / prosjektbasert",
-    relatedCaseStudyId: "nordic-retail",
-  }
-];
-
-export const PROJECTS: Project[] = [
-  {
-    id: "fjord-fintech",
-    title: "Neste Generasjons FinTech-Plattform",
-    client: "Fjord Kapital AS",
-    category: "Finans & Investering",
-    year: "2025",
-    summary: "Redesign og arkitekturfornyelse av Norges ledende digitale investeringsportal.",
-    challenge: "Den eksisterende plattformen hadde treg responstid, fragmentert brukeropplevelse og lav konvertering blant yngre investorer.",
-    solution: "Bygget et ultra-raskt, modulært grensesnitt med 'Moderne Glassmorfisme' designstil, sanntids aksjedata og integrerte AI-investeringsinnsikter.",
-    results: ["+185% økning i nye aktive brukere", "0.4s gjennomsnittlig lastefeil-fri responstid", "Designsystem brukt på tvers av 5 applikasjoner"],
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Gemini AI API", "Node.js", "Express"],
-    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80",
-    styleUsed: "Moderne Glassmorfisme",
-    testimonial: {
-      quote: "Widevig Digital transformerte ikke bare appen vår – de endret måten vi tenker produktutvikling på.",
-      author: "Henrik Lindqvist",
-      role: "CTO, Fjord Kapital",
-    }
-  },
-  {
-    id: "nordic-retail",
-    title: "Sømløs Omnikanal E-handel",
-    client: "Nordic Living Group",
-    category: "E-handel & Retail",
-    year: "2024",
-    summary: "Konseptualisering og koding av et minimalistisk designsystem for 120 nettbutikker.",
-    challenge: "Ulike merkevarer i konsernet brukte sprikende farger, fonter og komponenter, noe som førte til høyt vedlikeholdsbudsjett.",
-    solution: "Etablerte 'Nordisk Minimalisme' designsystemet med dynamisk tema-velger, universell tilgjengelighet (WCAG AA) og felles backend.",
-    results: ["40% reduksjon i utviklingstid for nye sider", "+28% i gjennomsnittlig handlekurvverdi", "100% WCAG 2.1 tilgjengelighet"],
-    technologies: ["React", "Tailwind CSS", "Vite", "Figma Tokens", "Headless Commerce"],
-    imageUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80",
-    styleUsed: "Nordisk Minimalisme",
-    testimonial: {
-      quote: "Fleksibiliteten til å veksle mellom temaer og stilvarianter ga merkevarene våre nytt liv.",
-      author: "Astrid Berg",
-      role: "Head of Digital, Nordic Living",
-    }
-  },
-  {
-    id: "health-ai-assistant",
-    title: "AI-Drevet Pasientportal & Triage",
-    client: "Medisinsk Helsenett",
-    category: "Helse & Biotek",
-    year: "2025",
-    summary: "Intelligent pasientmottak med sikker AI-analyse for prioritering av konsultasjoner.",
-    challenge: "Lange ventetider på legevaktsentraler og manuell sortering av henvendelser opprettet store flaskehalser.",
-    solution: "Utviklet en 'Futuristisk Mørk Tech' pasientportal med Gemini AI som veileder pasienten og oppsummerer symptomer til legen.",
-    results: ["62% reduksjon i ventetid for hastesaker", "94% tilfredshet blant legene", "Full GDPR og Helsenett-compliance"],
-    technologies: ["Gemini AI API", "TypeScript", "Express", "Secure Cloud Infrastructure"],
-    imageUrl: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
-    styleUsed: "Futuristisk Mørk Tech",
-    testimonial: {
-      quote: "Sikkerheten og presisjonen i løsningen har gjort hverdagen betydelig enklere for våre helsearbeidere.",
-      author: "Dr. Thomas Eide",
-      role: "Medisinsk Direktør",
-    }
-  },
-  {
-    id: "energy-cloud-migration",
-    title: "Skybasert Grønn Energi-Dashboard",
-    client: "Nordic Green Power",
-    category: "Energi & Bærekraft",
-    year: "2024",
-    summary: "Realtids visualisering av sol- og vindenergi-produksjon med prediktiv AI.",
-    challenge: "Komplekse sensordata fra 300 vindparker var vanskelig tilgjengelig for operatører i felt.",
-    solution: "Designet et taktilt, tilgjengelig dashboard med 'Myk Neumorfisme' som gjør tunge telemetry-data enkle å tolke.",
-    results: ["Realtids streaming av 50k datapunkter/sek", "15% forbedret energieffektivitet i felt"],
-    technologies: ["D3.js", "Recharts", "React", "Tailwind CSS", "WebSocket API"],
-    imageUrl: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1000&q=80",
-    styleUsed: "Myk Neumorfisme",
   }
 ];
 
@@ -568,11 +488,4 @@ export const TEAM_MEMBERS: TeamMember[] = [
     linkedin: "https://linkedin.com",
     email: "axel@widevig.no",
   },
-];
-
-export const STATS = [
-  { value: "140+", label: "Leverte IT- og designprosjekter", subtext: "For ledende nordiske bedrifter" },
-  { value: "99.4%", label: "Kundemålt tilfredshet", subtext: "Basert på evaluering etter leveranse" },
-  { value: "3.8x", label: "Gjennomsnittlig ROI", subtext: "Målt på digitale transformasjonsprosjekter" },
-  { value: "10", label: "Unike Designstiler", subtext: "Sømløs veksling mellom visuelle uttrykk" },
 ];

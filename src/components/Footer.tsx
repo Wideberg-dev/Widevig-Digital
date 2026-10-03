@@ -79,7 +79,7 @@ export const Footer: React.FC = () => {
         {/* Guarantees */}
         <div className={`mt-16 grid grid-cols-1 gap-6 border-t pt-8 md:grid-cols-3 ${activeStyle.surfaceBorder}`}>
           {[
-            { icon: Shield, color: "text-violet-500 dark:text-violet-300", text: "Universell utforming (WCAG 2.1 AA) og GDPR" },
+            { icon: Shield, color: "text-violet-500 dark:text-violet-300", text: "Bygget etter WCAG 2.1 AA og GDPR" },
             { icon: Award, color: "text-amber-500 dark:text-amber-300", text: "Skandinavisk UX og moderne arkitektur" },
             { icon: HeartHandshake, color: "text-emerald-500 dark:text-emerald-300", text: "Direkte kontakt med de som bygger løsningen" },
           ].map(({ icon: Icon, color, text }) => (
@@ -113,7 +113,7 @@ export const Footer: React.FC = () => {
         {/* Copyright */}
         <div className={`mt-6 flex flex-col items-center justify-between gap-4 text-xs sm:flex-row ${activeStyle.textSecondary}`}>
           <p>© {new Date().getFullYear()} Widevig AS. Alle rettigheter reservert.</p>
-          <p>Designet og kodet i Norge</p>
+          <p>En del av Widevig AS</p>
         </div>
       </div>
     </footer>

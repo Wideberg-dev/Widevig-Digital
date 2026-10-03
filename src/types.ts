@@ -63,27 +63,6 @@ export interface Service {
   deliverables: string[];
   priceRange: string;
   typicalDuration: string;
-  relatedCaseStudyId?: string;
-}
-
-export interface Project {
-  id: string;
-  title: string;
-  client: string;
-  category: string;
-  year: string;
-  summary: string;
-  challenge: string;
-  solution: string;
-  results: string[];
-  technologies: string[];
-  imageUrl: string;
-  styleUsed: string;
-  testimonial?: {
-    quote: string;
-    author: string;
-    role: string;
-  };
 }
 
 export interface TeamMember {

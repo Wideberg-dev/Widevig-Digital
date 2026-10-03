@@ -13,23 +13,19 @@ import {
   Laptop
 } from "lucide-react";
 
-const DEFAULT_FALLBACK_IMAGES: Record<string, string> = {
-  axel: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-  maren: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
-};
-
 export const AboutView: React.FC = () => {
   const { activeStyle, setQuoteModalOpen } = useDesignStyle();
 
-  // Track failed local image URLs to fallback gracefully to photo assets if file is missing
+  // Members whose photo in /public/team is missing get their initials instead
   const [failedLocalImages, setFailedLocalImages] = useState<Record<string, boolean>>({});
 
-  const getMemberImageSrc = (memberId: string, defaultPath: string) => {
-    if (failedLocalImages[memberId]) {
-      return DEFAULT_FALLBACK_IMAGES[memberId] || DEFAULT_FALLBACK_IMAGES.axel;
-    }
-    return defaultPath;
-  };
+  const initials = (name: string) =>
+    name
+      .split(" ")
+      .map((part) => part[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
 
   return (
     <div className="space-y-16 animate-fade-in" id="about-view">
@@ -90,7 +86,6 @@ export const AboutView: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {TEAM_MEMBERS.map((member) => {
             const memberId = member.id;
-            const imgSrc = getMemberImageSrc(memberId, member.imageUrl);
 
             return (
               <div
@@ -101,15 +96,24 @@ export const AboutView: React.FC = () => {
                   {/* Avatar Container */}
                   <div className="relative w-36 h-36 mx-auto">
                     <div className="w-full h-full rounded-full overflow-hidden border-4 border-indigo-500/30 shadow-xl bg-slate-900 flex items-center justify-center">
-                      <img 
-                        src={imgSrc} 
-                        alt={member.name} 
-                        className="w-full h-full object-cover"
-                        referrerPolicy="no-referrer"
-                        onError={() => {
-                          setFailedLocalImages((prev) => ({ ...prev, [memberId]: true }));
-                        }}
-                      />
+                      {failedLocalImages[memberId] ? (
+                        <span
+                          role="img"
+                          aria-label={member.name}
+                          className="flex h-full w-full items-center justify-center bg-gradient-to-br from-violet-600 via-fuchsia-600 to-cyan-500 font-display text-4xl font-bold text-white"
+                        >
+                          {initials(member.name)}
+                        </span>
+                      ) : (
+                        <img
+                          src={member.imageUrl}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                          onError={() => {
+                            setFailedLocalImages((prev) => ({ ...prev, [memberId]: true }));
+                          }}
+                        />
+                      )}
                     </div>
                   </div>
 
@@ -188,7 +192,7 @@ export const AboutView: React.FC = () => {
               Sikkerhet & Robusthet
             </h3>
             <p className={`text-xs ${activeStyle.textSecondary} leading-relaxed`}>
-              Med cyberingeniør- og telematikkbakgrunn bygger vi alle løsninger med fokus på dataskydd, universell utforming (WCAG AA) og fremtidsrettet IKT-arkitektur.
+              Med cyberingeniør- og telematikkbakgrunn bygger vi alle løsninger med fokus på personvern, universell utforming (WCAG AA) og fremtidsrettet IKT-arkitektur.
             </p>
           </div>
 

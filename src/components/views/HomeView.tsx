@@ -14,13 +14,10 @@ import {
   ArrowUpRight,
   Briefcase,
   Check,
-  Cloud,
-  Cpu,
   Gauge,
   Globe,
   Layers,
   MousePointerClick,
-  Network,
   Palette,
   Rocket,
   ShieldCheck,
@@ -29,6 +26,7 @@ import {
   Wand2,
 } from "lucide-react";
 import { DESIGN_STYLES, SERVICES } from "../../data/mockData";
+import { SERVICE_ICONS } from "../../data/serviceIcons";
 import {
   Aurora,
   CountUp,
@@ -42,28 +40,19 @@ import {
   WordsReveal,
 } from "../ui/Motion";
 
-const SERVICE_ICONS: Record<string, React.ElementType> = {
-  Globe,
-  Network,
-  Cpu,
-  ShieldCheck,
-  Cloud,
-  Briefcase,
-};
 
 const MARQUEE_ITEMS = [
   "React",
   "TypeScript",
-  "Next.js",
   "Tailwind CSS",
   "Figma",
   "Motion design",
   "SEO",
-  "WCAG AA",
-  "Headless CMS",
+  "WCAG 2.1 AA",
   "AI-integrasjon",
-  "Azure & AWS",
-  "Vercel",
+  "AWS, Azure & Google Cloud",
+  "GitHub",
+  "IT-sikkerhet",
 ];
 
 const PROCESS_STEPS = [
@@ -89,7 +78,7 @@ const PROCESS_STEPS = [
     icon: Rocket,
     title: "Lansering & vekst",
     time: "Løpende",
-    text: "Vi lanserer, måler og forbedrer. Du får opplæring, full eierskap til koden og en partner som svarer raskt.",
+    text: "Vi lanserer, følger opp og forbedrer. Du får kildekoden og en partner som svarer raskt.",
   },
 ];
 
@@ -227,7 +216,7 @@ const Hero: React.FC<{ onQuote: () => void; onShowcase: () => void }> = ({ onQuo
             transition={{ delay: 1.1, duration: 0.8 }}
             className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-zinc-500"
           >
-            {["Svar innen 24 timer", "Fastpris – ingen skjulte kostnader", "Du eier koden"].map((t) => (
+            {["Svar innen 24 timer", "Fastpris – ingen skjulte kostnader", "Du får kildekoden"].map((t) => (
               <li key={t} className="flex items-center gap-1.5">
                 <Check className="h-3.5 w-3.5 text-emerald-400" />
                 {t}
@@ -247,9 +236,9 @@ const Hero: React.FC<{ onQuote: () => void; onShowcase: () => void }> = ({ onQuo
           >
             <div className="absolute -inset-x-10 -top-10 bottom-0 -z-10 rounded-[3rem] bg-gradient-to-b from-violet-600/30 via-fuchsia-500/10 to-transparent blur-3xl" />
             <BrowserMockup />
-            <FloatingChip className="-left-4 top-[18%] sm:-left-10" delay={1.3} icon={Gauge} label="Lighthouse" value="100" tone="emerald" />
-            <FloatingChip className="-right-3 top-[44%] sm:-right-10" delay={1.5} icon={Timer} label="Lastetid" value="0,8 s" tone="cyan" floatDelay="-2s" />
-            <FloatingChip className="right-[12%] -top-7 hidden sm:flex" delay={1.7} icon={ShieldCheck} label="Tilgjengelighet" value="WCAG AA" tone="violet" floatDelay="-4s" />
+            <FloatingChip className="-left-4 top-[18%] sm:-left-10" delay={1.3} icon={Gauge} label="Ytelse" value="Rask lastetid" tone="emerald" />
+            <FloatingChip className="-right-3 top-[44%] sm:-right-10" delay={1.5} icon={Globe} label="Synlighet" value="SEO fra start" tone="cyan" floatDelay="-2s" />
+            <FloatingChip className="right-[12%] -top-7 hidden sm:flex" delay={1.7} icon={ShieldCheck} label="Bygget etter" value="WCAG 2.1 AA" tone="violet" floatDelay="-4s" />
           </motion.div>
         </div>
       </div>
@@ -397,14 +386,16 @@ const SectionHeading: React.FC<{
   eyebrow: string;
   title: React.ReactNode;
   text?: string;
+  note?: string;
   align?: "center" | "left";
-}> = ({ eyebrow, title, text, align = "center" }) => (
+}> = ({ eyebrow, title, text, note, align = "center" }) => (
   <Reveal className={`space-y-5 ${align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-2xl"}`}>
     <Eyebrow>{eyebrow}</Eyebrow>
     <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">
       {title}
     </h2>
     {text && <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">{text}</p>}
+    {note && <p className="text-[11px] leading-relaxed text-zinc-600">{note}</p>}
   </Reveal>
 );
 
@@ -418,10 +409,11 @@ const WhySection: React.FC = () => (
       eyebrow="Hvorfor Widevig"
       title={
         <>
-          Første inntrykk tar <span className="text-gradient">50 millisekunder</span>.
+          Førsteinntrykket dannes på <span className="text-gradient">50 millisekunder</span>.
         </>
       }
-      text="Så lang tid bruker en besøkende på å bestemme seg. Vi sørger for at de blir – og at de tar kontakt."
+      text="Så raskt danner besøkende seg et inntrykk av en nettside, viser forskning. Vi sørger for at inntrykket er godt, og at de tar kontakt."
+      note="Kilde: Lindgaard mfl. (2006), «Attention web designers: You have 50 milliseconds to make a good first impression!», Behaviour & Information Technology 25(2)."
     />
 
     <div className="grid auto-rows-[minmax(220px,auto)] grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
@@ -804,7 +796,7 @@ const OpenSlotsSection: React.FC<{ onQuote: () => void }> = ({ onQuote }) => {
     {
       tag: "Prosjektplass #2",
       title: "Nettbutikk, webapp eller AI-løsning",
-      text: "Har du et større prosjekt? Vi har kapasitet til ett nytt, ambisiøst oppdrag dette kvartalet.",
+      text: "Har du et større prosjekt? Vi tar også på oss nettbutikker, webapper og AI-løsninger.",
       gradient: "from-cyan-500/35 via-blue-500/15",
     },
   ];
@@ -818,7 +810,7 @@ const OpenSlotsSection: React.FC<{ onQuote: () => void }> = ({ onQuote }) => {
             Ditt prosjekt kan bli <span className="text-gradient">neste case her</span>.
           </>
         }
-        text="Vi er et ungt byrå med begrenset kapasitet – det betyr full oppmerksomhet på hvert eneste prosjekt."
+        text="Vi er et lite byrå. Det betyr full oppmerksomhet på prosjektet ditt og direkte kontakt med de som bygger det."
       />
 
       <div className="grid gap-5 md:grid-cols-2">

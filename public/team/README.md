@@ -1,12 +1,9 @@
 # Team Profilbilder
 
-Slik kan du legge til bilde av Axel og Maren i kildekoden:
+Slik legger du til bilder av Axel og Maren:
 
-1. Legg bildet av Axel i denne mappen med filnavnet:
-   `/public/team/axel.jpg` (eller `.png`)
+1. Legg bildet av Axel i denne mappen med filnavnet `axel.jpg`
+2. Legg bildet av Maren i denne mappen med filnavnet `maren.jpg`
 
-2. Legg bildet av Maren i denne mappen med filnavnet:
-   `/public/team/maren.jpg` (eller `.png`)
-
-Nettsiden sjekker automatisk etter disse filene (`/team/axel.jpg` og `/team/maren.jpg`).
-Du kan også laste opp bilder direkte via «Endre bilde»-knappen på «Om oss»-siden i nettleseren!
+Nettsiden henter bildene fra `/team/axel.jpg` og `/team/maren.jpg`.
+Finnes ikke bildet, vises personens initialer i stedet.

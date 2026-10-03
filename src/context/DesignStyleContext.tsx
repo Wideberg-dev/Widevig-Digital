@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { DesignStyle, StyleId, SubPage, Project } from "../types";
+import { DesignStyle, StyleId, SubPage } from "../types";
 import { DESIGN_STYLES, SIGNATURE_STYLE } from "../data/mockData";
 
 interface DesignStyleContextType {
@@ -9,8 +9,6 @@ interface DesignStyleContextType {
   setCurrentSubPage: (page: SubPage) => void;
   quoteModalOpen: boolean;
   setQuoteModalOpen: (open: boolean) => void;
-  activeProjectModal: Project | null;
-  setActiveProjectModal: (project: Project | null) => void;
   allStyles: DesignStyle[];
 }
 
@@ -29,7 +27,6 @@ export const DesignStyleProvider: React.FC<{ children: ReactNode }> = ({ childre
   const [showcaseStyle, setShowcaseStyle] = useState<DesignStyle>(loadShowcaseStyle);
   const [currentSubPage, setCurrentSubPage] = useState<SubPage>("home");
   const [quoteModalOpen, setQuoteModalOpen] = useState<boolean>(false);
-  const [activeProjectModal, setActiveProjectModal] = useState<Project | null>(null);
 
   // The switchable styles only apply inside the Design Showcase; every other page uses the brand style
   const activeStyle = currentSubPage === "design-showcase" ? showcaseStyle : SIGNATURE_STYLE;
@@ -60,8 +57,6 @@ export const DesignStyleProvider: React.FC<{ children: ReactNode }> = ({ childre
         setCurrentSubPage: handleSetSubPage,
         quoteModalOpen,
         setQuoteModalOpen,
-        activeProjectModal,
-        setActiveProjectModal,
         allStyles: DESIGN_STYLES,
       }}
     >
