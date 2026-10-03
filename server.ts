@@ -7,7 +7,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+// Hosting platforms (Cloud Run, Render, Railway …) provide the port through PORT
+const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
 
