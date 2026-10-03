@@ -24,7 +24,9 @@ export const ContactView: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [selectedServices, setSelectedServices] = useState<string[]>(["ux-ui-designsystem"]);
-  const [selectedStyle, setSelectedStyle] = useState<StyleId>(activeStyle.id);
+  const [selectedStyle, setSelectedStyle] = useState<StyleId>(
+    DESIGN_STYLES.some((st) => st.id === activeStyle.id) ? activeStyle.id : DESIGN_STYLES[0].id
+  );
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

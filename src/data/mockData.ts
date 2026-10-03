@@ -1,5 +1,40 @@
 import { DesignStyle, Service, Project, TeamMember } from "../types";
 
+/** Widevig's own brand style, used on every page outside the Design Showcase */
+export const SIGNATURE_STYLE: DesignStyle = {
+  id: "widevig-signature",
+  name: "Widevig Signatur",
+  tagline: "Mørk, levende og premium",
+  description: "Widevig Digitals egen signaturstil: dyp nattemørk bakgrunn, glassflater, aurora-gradienter og myke bevegelser.",
+  badgeText: "Vår egen stil",
+  isDark: true,
+  themeClass: "style-signature",
+  bgClass: "bg-[#07070c] text-zinc-100",
+  surfaceClass: "bg-white/[0.03] text-zinc-100 backdrop-blur-xl border border-white/10",
+  surfaceBorder: "border-white/10",
+  textPrimary: "text-white",
+  textSecondary: "text-zinc-400",
+  accentBg: "bg-white text-zinc-950 font-semibold hover:bg-zinc-200",
+  accentText: "text-violet-300",
+  accentHover: "hover:bg-zinc-200",
+  accentBorder: "border-violet-400/50",
+  buttonRadius: "rounded-full",
+  cardRadius: "rounded-3xl",
+  fontFamily: "font-sans",
+  shadowClass: "shadow-2xl shadow-black/40",
+  gradientBg: "bg-gradient-to-b from-[#0c0c14] to-[#07070c]",
+  previewImage: "",
+  tokens: {
+    primaryColor: "#8B5CF6 (Violet 500)",
+    secondaryColor: "#22D3EE (Cyan 400)",
+    backgroundColor: "#07070C",
+    fontHeading: "Bricolage Grotesque",
+    fontBody: "Inter",
+    borderRadius: "999px / 24px",
+    shadowStyle: "Glass + aurora glow",
+  },
+};
+
 export const DESIGN_STYLES: DesignStyle[] = [
   {
     id: "nordic-minimalist",
@@ -35,6 +70,7 @@ export const DESIGN_STYLES: DesignStyle[] = [
   },
   {
     id: "cyberpunk-tech",
+    isDark: true,
     name: "Futuristisk Mørk Tech",
     tagline: "Høy kontrast, neon-aksenter og obsidian mørkhet",
     description: "Designet for fremtidsrettede AI- og tech-selskaper. Mørk obsidian bakgrunn med glødende cyan og neonlysende aksentdetaljer.",
@@ -67,6 +103,7 @@ export const DESIGN_STYLES: DesignStyle[] = [
   },
   {
     id: "corporate-glass",
+    isDark: true,
     name: "Moderne Glassmorfisme",
     tagline: "Frostet glass, myke fargegraderinger og dybde",
     description: "Transparente paneler med bakgrunnsuskarphet (backdrop-blur), kombinert med koboltblå og fiolette gradienter.",
@@ -227,6 +264,7 @@ export const DESIGN_STYLES: DesignStyle[] = [
   },
   {
     id: "emerald-luxury",
+    isDark: true,
     name: "Dyp Smaragd & Gull",
     tagline: "Eksklusiv mørk grønn, champagne-gull og organisk ro",
     description: "Skapt for premium merkevarer og eksklusive løsninger. Dyp skogsgrønn med varme gulltoner, myke lysreflekser og sofistikert ro.",
@@ -291,6 +329,7 @@ export const DESIGN_STYLES: DesignStyle[] = [
   },
   {
     id: "midnight-indigo",
+    isDark: true,
     name: "Midnattsblå Monokrom",
     tagline: "Sober mørkeblå, skarp presisjon og lav øyebelastning",
     description: "Spesialdesignet for krevende IKT-verktøy, kontrollrom og analytiske systemer. Mørk midnattsblå nyanse med skarp safirblå aksent og høy lesbarhet.",

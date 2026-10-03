@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { useDesignStyle } from "../context/DesignStyleContext";
 import { StyleId } from "../types";
 import { X, Send, CheckCircle2, Sparkles, Copy, Check, ExternalLink, Mail, AlertTriangle } from "lucide-react";
@@ -11,16 +12,31 @@ export const QuoteModal: React.FC = () => {
   const [contactName, setContactName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [selectedServices, setSelectedServices] = useState<string[]>(["ux-ui-designsystem"]);
+  const [selectedServices, setSelectedServices] = useState<string[]>([SERVICES[0].id]);
   const [budgetRange, setBudgetRange] = useState("3.5k - 10k NOK");
-  const [preferredStyle, setPreferredStyle] = useState<StyleId>(activeStyle.id);
+  const [preferredStyle, setPreferredStyle] = useState<StyleId>(
+    DESIGN_STYLES.some((st) => st.id === activeStyle.id) ? activeStyle.id : DESIGN_STYLES[0].id
+  );
   const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mailtoClicked, setMailtoClicked] = useState(false);
 
-  if (!quoteModalOpen) return null;
+  // Close on Escape and lock page scroll while the dialog is open
+  useEffect(() => {
+    if (!quoteModalOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setQuoteModalOpen(false);
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [quoteModalOpen, setQuoteModalOpen]);
 
   const toggleService = (id: string) => {
     if (selectedServices.includes(id)) {
@@ -106,8 +122,27 @@ Sendt fra tilbudsskjemaet på widevig.no`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-      <div 
+    <AnimatePresence>
+    {quoteModalOpen && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) setQuoteModalOpen(false);
+      }}
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${
+        activeStyle.isDark ? "bg-black/75 backdrop-blur-xl" : "bg-black/60 backdrop-blur-sm"
+      }`}
+      role="dialog"
+      aria-modal="true"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 40, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 24, scale: 0.97 }}
+        transition={{ type: "spring", stiffness: 260, damping: 26 }}
         className={`w-full max-w-2xl max-h-[90vh] overflow-y-auto ${activeStyle.cardRadius} ${activeStyle.surfaceClass} border ${activeStyle.surfaceBorder} shadow-2xl p-6 sm:p-8 relative`}
         id="quote-modal-container"
       >
@@ -416,8 +451,10 @@ Sendt fra tilbudsskjemaet på widevig.no`;
             </button>
           </form>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
+    )}
+    </AnimatePresence>
   );
 };
 

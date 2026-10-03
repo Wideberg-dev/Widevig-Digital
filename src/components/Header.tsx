@@ -1,33 +1,27 @@
 import React, { useState } from "react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useDesignStyle } from "../context/DesignStyleContext";
 import { SubPage } from "../types";
-import { 
-  Sparkles, 
-  Menu, 
-  X, 
-  Compass, 
-  Users, 
-  Send,
-  Palette,
-  Mail
-} from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
+
+const NAV_ITEMS: { id: SubPage; label: string }[] = [
+  { id: "home", label: "Hjem" },
+  { id: "about", label: "Om oss" },
+  { id: "design-showcase", label: "Design Showcase" },
+  { id: "contact", label: "Kontakt" },
+];
+
+// Keeps the label readable on top of the sliding accent pill, whatever the active style is
+const ACCENT_TEXT_ONLY = "bg-transparent! bg-none! shadow-none!";
 
 export const Header: React.FC = () => {
-  const { 
-    activeStyle, 
-    currentSubPage, 
-    setCurrentSubPage, 
-    setQuoteModalOpen
-  } = useDesignStyle();
-
+  const { activeStyle, currentSubPage, setCurrentSubPage, setQuoteModalOpen } = useDesignStyle();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isSignature = activeStyle.id === "widevig-signature";
+  const [scrolled, setScrolled] = useState(false);
 
-  const navItems: { id: SubPage; label: string; icon: React.ReactNode }[] = [
-    { id: "home", label: "Hovedside", icon: <Compass className="w-4 h-4" /> },
-    { id: "about", label: "Om Oss", icon: <Users className="w-4 h-4" /> },
-    { id: "contact", label: "Kontakt", icon: <Mail className="w-4 h-4" /> },
-    { id: "design-showcase", label: "Design Showcase", icon: <Palette className="w-4 h-4" /> },
-  ];
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 24));
 
   const handleNavClick = (page: SubPage) => {
     setCurrentSubPage(page);
@@ -35,119 +29,153 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className={`sticky top-0 z-40 transition-all duration-300 border-b ${activeStyle.surfaceClass} ${activeStyle.surfaceBorder}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        
+    <header className="sticky top-0 z-40 px-3 pt-3 sm:px-6 sm:pt-4">
+      <motion.div
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className={`mx-auto flex items-center justify-between gap-4 rounded-full border px-3 py-2 transition-all duration-500 sm:px-4 ${activeStyle.surfaceBorder} ${
+          scrolled
+            ? `max-w-5xl shadow-2xl shadow-black/20 backdrop-blur-xl ${
+                isSignature ? "bg-[#0b0b12]/75 text-zinc-100" : activeStyle.surfaceClass
+              }`
+            : `max-w-7xl border-transparent bg-transparent`
+        }`}
+      >
         {/* Logo */}
-        <div 
+        <button
           onClick={() => handleNavClick("home")}
-          className="flex items-center gap-3 cursor-pointer group"
+          className="group flex items-center gap-2.5 pl-1"
           id="header-logo"
+          aria-label="Widevig Digital – til forsiden"
         >
-          <div className={`w-10 h-10 ${activeStyle.buttonRadius} ${activeStyle.accentBg} transition-transform duration-300 group-hover:scale-105 flex items-center justify-center shadow-md font-extrabold text-lg tracking-wider`}>
-            {/* Custom Styled 'W' Logo Mark */}
-            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+          <span
+            className={`relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl ${
+              isSignature
+                ? "bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-400 text-white"
+                : activeStyle.accentBg
+            } shadow-lg transition-transform duration-500 group-hover:rotate-[8deg] group-hover:scale-110`}
+          >
+            <svg className="relative z-10 h-4.5 w-4.5 fill-current" viewBox="0 0 24 24" aria-hidden>
               <path d="M2 4h3.5l3.5 11 3.5-11h3l3.5 11 3.5-11H22l-5 16h-3.5L10 9l-3.5 11H3L2 4z" />
             </svg>
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5 whitespace-nowrap">
-              <span className={`text-xl font-extrabold tracking-tight ${activeStyle.textPrimary} block leading-none`}>
-                Widevig
-              </span>
-              <span className="text-xs font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 whitespace-nowrap">
-                Digital
-              </span>
-            </div>
-            <span className={`text-[11px] ${activeStyle.textSecondary} flex items-center gap-1 mt-0.5 font-medium whitespace-nowrap`}>
-              En del av Widevig AS
+          </span>
+          <span className="flex items-baseline gap-1.5 whitespace-nowrap">
+            <span className={`font-display text-lg font-bold tracking-tight ${activeStyle.textPrimary}`}>Widevig</span>
+            <span className={`text-[11px] font-semibold uppercase tracking-[0.2em] ${activeStyle.textSecondary}`}>
+              Digital
             </span>
-          </div>
-        </div>
+          </span>
+        </button>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-2" id="desktop-nav">
-          {navItems.map((item) => {
+        {/* Desktop navigation with sliding active pill */}
+        <nav className="hidden items-center gap-1 md:flex" id="desktop-nav">
+          {NAV_ITEMS.map((item) => {
             const isActive = currentSubPage === item.id;
             return (
               <button
                 key={item.id}
                 id={`nav-item-${item.id}`}
                 onClick={() => handleNavClick(item.id)}
-                className={`px-4 py-2 text-sm font-semibold ${activeStyle.buttonRadius} transition-all duration-200 flex items-center gap-2 border whitespace-nowrap ${
-                  isActive 
-                    ? `${activeStyle.accentBg} shadow-md border-indigo-400/50` 
-                    : `${activeStyle.textSecondary} hover:${activeStyle.textPrimary} hover:bg-indigo-500/15 hover:border-indigo-500/40 hover:shadow-sm hover:scale-[1.02] active:scale-95 border-transparent`
+                className={`relative whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                  isActive ? "" : `${activeStyle.textSecondary} opacity-80 hover:opacity-100`
                 }`}
               >
-                {item.icon}
-                <span className="whitespace-nowrap">{item.label}</span>
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active-pill"
+                    className={`absolute inset-0 rounded-full ${activeStyle.accentBg}`}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className={`relative z-10 ${isActive ? `${activeStyle.accentBg} ${ACCENT_TEXT_ONLY}` : ""}`}>
+                  {item.label}
+                </span>
               </button>
             );
           })}
         </nav>
 
-        {/* Right Section: Quote CTA */}
-        <div className="hidden sm:flex items-center gap-3" id="header-actions">
-          <button
+        {/* Quote CTA */}
+        <div className="hidden items-center sm:flex" id="header-actions">
+          <motion.button
             id="header-request-quote-btn"
             onClick={() => setQuoteModalOpen(true)}
-            className={`px-5 py-2.5 text-xs font-bold ${activeStyle.buttonRadius} ${activeStyle.accentBg} flex items-center gap-1.5 transition-all duration-200 hover:brightness-110 hover:shadow-lg hover:scale-[1.03] active:scale-95 border border-indigo-400/40 whitespace-nowrap`}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            className={`group inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-5 py-2.5 text-xs font-semibold ${activeStyle.accentBg}`}
           >
-            <Send className="w-3.5 h-3.5 shrink-0" />
-            <span className="whitespace-nowrap">Få et Tilbud</span>
-          </button>
+            Få et tilbud
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </motion.button>
         </div>
 
-        {/* Mobile menu toggle button */}
-        <div className="flex items-center gap-2 md:hidden">
-          <button
-            id="mobile-menu-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`p-2.5 ${activeStyle.buttonRadius} border ${activeStyle.surfaceBorder} ${activeStyle.textPrimary} hover:bg-indigo-500/15 hover:border-indigo-500/40 transition-all`}
+        {/* Mobile menu toggle */}
+        <button
+          id="mobile-menu-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Lukk meny" : "Åpne meny"}
+          aria-expanded={mobileMenuOpen}
+          className={`flex h-10 w-10 items-center justify-center rounded-full border md:hidden ${activeStyle.surfaceBorder} ${activeStyle.textPrimary}`}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={mobileMenuOpen ? "close" : "open"}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </motion.span>
+          </AnimatePresence>
+        </button>
+      </motion.div>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -12, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.97 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className={`mx-auto mt-2 max-w-5xl origin-top rounded-3xl border p-3 shadow-2xl backdrop-blur-xl md:hidden ${activeStyle.surfaceClass} ${activeStyle.surfaceBorder}`}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-      </div>
-
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className={`md:hidden border-t ${activeStyle.surfaceBorder} ${activeStyle.surfaceClass} px-4 pt-3 pb-6 space-y-3`}>
-          <div className="space-y-1">
-            {navItems.map((item) => (
-              <button
+            {NAV_ITEMS.map((item, i) => (
+              <motion.button
                 key={item.id}
                 id={`mobile-nav-${item.id}`}
                 onClick={() => handleNavClick(item.id)}
-                className={`w-full text-left px-4 py-3 ${activeStyle.buttonRadius} text-sm font-medium flex items-center gap-3 ${
-                  currentSubPage === item.id 
-                    ? `${activeStyle.accentBg} font-bold` 
-                    : `${activeStyle.textPrimary} hover:bg-black/5 dark:hover:bg-white/5`
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.05 + i * 0.05 }}
+                className={`flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-left font-display text-lg font-semibold ${
+                  currentSubPage === item.id ? activeStyle.accentBg : `${activeStyle.textPrimary} hover:bg-black/5 dark:hover:bg-white/5`
                 }`}
               >
-                {item.icon}
-                <span>{item.label}</span>
-              </button>
+                {item.label}
+                <ArrowRight className="h-4 w-4 opacity-50" />
+              </motion.button>
             ))}
-          </div>
-
-          <div className="pt-3 border-t border-black/10 dark:border-white/10">
             <button
               id="mobile-request-quote-btn"
               onClick={() => {
                 setMobileMenuOpen(false);
                 setQuoteModalOpen(true);
               }}
-              className={`w-full py-3 text-sm font-bold ${activeStyle.buttonRadius} ${activeStyle.accentBg} flex items-center justify-center gap-2`}
+              className={`mt-2 flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-semibold ${
+                isSignature
+                  ? "bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 text-white"
+                  : activeStyle.accentBg
+              }`}
             >
-              <Send className="w-4 h-4" />
-              <span>Få et uforpliktende tilbud</span>
+              Få et uforpliktende tilbud
+              <ArrowRight className="h-4 w-4" />
             </button>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

@@ -5,6 +5,7 @@ export type SubPage =
   | "design-showcase";
 
 export type StyleId = 
+  | "widevig-signature"
   | "nordic-minimalist"
   | "cyberpunk-tech"
   | "corporate-glass"
@@ -22,6 +23,8 @@ export interface DesignStyle {
   tagline: string;
   description: string;
   badgeText: string;
+  /** Dark styles enable Tailwind's `dark:` variant for the whole app */
+  isDark?: boolean;
   themeClass: string;
   bgClass: string;
   surfaceClass: string;
